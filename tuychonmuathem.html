@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuỳ Chọn Mua Thêm Cho Bệnh Viện</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B2545;
+    --blue: #1363DF;
+    --sky: #47A0F4;
+    --teal: #05C3A0;
+    --amber: #F4A827;
+    --red: #E84855;
+    --light: #EEF4FF;
+    --white: #FFFFFF;
+  }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: #F0F5FF;
+    color: var(--navy);
+    padding: 32px 16px;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a72 100%);
+    border-radius: 20px;
+    padding: 36px 40px;
+    color: white;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(71,160,244,0.08);
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(71,160,244,0.25);
+    border: 1px solid rgba(71,160,244,0.4);
+    color: #90CAFF;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .header p {
+    font-size: 14px;
+    color: #9BB8E8;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* ĐIỀU KIỆN */
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #C5D8FF, transparent);
+  }
+
+  .conditions {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 16px rgba(19,99,223,0.08);
+  }
+  .cond-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .cond-card {
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    position: relative;
+  }
+  .cond-card.c1 { background: linear-gradient(135deg, #E8F4FF, #D0E8FF); border: 1.5px solid #A0C8FF; }
+  .cond-card.c2 { background: linear-gradient(135deg, #FFF8E8, #FFE8B0); border: 1.5px solid #F4C84A; }
+  .cond-card.c3 { background: linear-gradient(135deg, #E8FFF5, #BEFFD9); border: 1.5px solid #40C97A; }
+  .cond-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .cond-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+  .cond-text {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .cond-card.c1 .cond-text { color: #0B4DAB; }
+  .cond-card.c2 .cond-text { color: #8B5A00; }
+  .cond-card.c3 .cond-text { color: #1A7A45; }
+
+  .or-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #7A8BB0;
+    letter-spacing: 1px;
+    margin-top: 14px;
+    gap: 10px;
+  }
+  .or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #DDE5F5;
+  }
+
+  /* QUY TRÌNH */
+  .process {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 16px rgba(19,99,223,0.08);
+    margin-bottom: 24px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 20px;
+    position: relative;
+  }
+
+  /* connector line */
+  .step:not(:last-child) .step-left::after {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 56px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #C5D8FF 0%, #E8EFFE 100%);
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  .step-num {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .step:nth-child(1) .step-num { background: linear-gradient(135deg, #1363DF, #47A0F4); }
+  .step:nth-child(2) .step-num { background: linear-gradient(135deg, #7B2FBE, #C060F0); }
+  .step:nth-child(3) .step-num { background: linear-gradient(135deg, #E84855, #FF8080); }
+  .step:nth-child(4) .step-num { background: linear-gradient(135deg, #05C3A0, #3DEDC8); }
+
+  .step-right {
+    padding-bottom: 28px;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .step-actor {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .actor-bv { background: #EBF3FF; color: #1363DF; }
+  .actor-syt { background: #F3EBFF; color: #7B2FBE; }
+  .actor-tt { background: #FFEBEC; color: #E84855; }
+  .actor-bv2 { background: #EBFFF9; color: #05956B; }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+
+  .step-body {
+    background: #F7FAFF;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #3A4F72;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #EEF4FF;
+    border: 1px solid #C5D5F5;
+    color: #2255AA;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin: 3px 3px 3px 0;
+  }
+  .tag.amber { background: #FFF8E8; border-color: #F4C84A; color: #8B5A00; }
+  .tag.green { background: #EDFFF5; border-color: #60D495; color: #1A7A45; }
+  .tag.red { background: #FFECEE; border-color: #F4A0A5; color: #B02020; }
+
+  .highlight-box {
+    border-left: 3px solid var(--blue);
+    background: #F0F6FF;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #2255AA;
+  }
+  .highlight-box.amber { border-color: #F4A827; background: #FFFAF0; color: #7A4800; }
+  .highlight-box.green { border-color: #05C3A0; background: #EDFFF8; color: #1A6A50; }
+
+  .arrow-down {
+    text-align: center;
+    color: #B0C4E8;
+    font-size: 22px;
+    line-height: 1;
+    padding: 4px 0 0 28px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: linear-gradient(135deg, #E8F0FF, #F0F5FF);
+    border: 1.5px dashed #B0CAFF;
+    border-radius: 14px;
+    padding: 18px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #4A6090;
+  }
+  .footer strong { color: var(--navy); }
+
+  @media (max-width: 600px) {
+    .cond-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 22px; }
+    .step-title { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">📋 Quy trình hướng dẫn</div>
+    <h1>Tuỳ Chọn Mua Thêm Cho Bệnh Viện</h1>
+    <p>Quy trình đề nghị mua thêm thuốc ngoài số lượng đã trúng thầu, áp dụng cho các cơ sở y tế công lập.</p>
+  </div>
+
+  <!-- PL 16 IMAGE -->
+  <div style="background:white;border-radius:16px;padding:24px 28px;margin-bottom:28px;box-shadow:0 2px 16px rgba(19,99,223,0.08);">
+    <div class="section-title">📄 Biểu mẫu Phụ lục 16 (PL 16)</div>
+    <div style="display:flex;justify-content:center;">
+      <img src="https://i.postimg.cc/Wb4F0Q5z/Screenshot-2026-03-12-152410.png" alt="Biểu mẫu Phụ lục 16"
+           style="max-width:100%;border-radius:10px;border:1.5px solid #C5D5F5;box-shadow:0 4px 16px rgba(0,0,0,0.1);" />
+    </div>
+    <div style="margin-top:16px;background:#F0F6FF;border-radius:10px;padding:14px 18px;font-size:13px;color:#3A4F72;line-height:1.7;">
+      <strong>📌 Nội dung chính của PL 16:</strong> Căn cứ pháp lý trúng thầu → Lý do đề nghị mua thêm (đã sử dụng &gt;80% hoặc giải trình phù hợp) → Số lượng dự kiến cần thêm → Kèm biên bản Hội đồng thuốc & điều trị + Danh mục xin thực hiện tuỳ chọn.
+    </div>
+  </div>
+
+  <!-- ĐIỀU KIỆN -->
+  <div class="conditions">
+    <div class="section-title">⚠️ Điều kiện bệnh viện phải đảm bảo</div>
+    <div class="cond-grid">
+      <div class="cond-card c1">
+        <div class="cond-icon">📊</div>
+        <div class="cond-label">Điều kiện 1</div>
+        <div class="cond-text">Đã sử dụng<br><span style="font-size:22px;font-weight:900;color:#0B4DAB">&gt; 80%</span><br>số lượng đã trúng thầu</div>
+      </div>
+      <div class="cond-card c2">
+        <div class="cond-icon">📝</div>
+        <div class="cond-label">Điều kiện 2</div>
+        <div class="cond-text">Sử dụng<br><span style="font-size:22px;font-weight:900;color:#8B5A00">&lt; 80%</span><br>+ có giải trình & thuyết minh kế hoạch</div>
+      </div>
+      <div class="cond-card c3">
+        <div class="cond-icon">🏥</div>
+        <div class="cond-label">Điều kiện 3</div>
+        <div class="cond-text">Bệnh viện<br><span style="font-size:18px;font-weight:900;color:#1A7A45">mới thành lập</span><br>(chưa có lịch sử sử dụng)</div>
+      </div>
+    </div>
+    <div class="or-divider">✦ Đáp ứng 1 trong 3 điều kiện trên là đủ điều kiện đề nghị ✦</div>
+  </div>
+
+  <!-- QUY TRÌNH 4 BƯỚC -->
+  <div class="process">
+    <div class="section-title">🔄 Quy trình 4 bước</div>
+
+    <div class="steps">
+
+      <!-- BƯỚC 1 -->
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+        </div>
+        <div class="step-right">
+          <div class="step-header">
+            <span class="step-actor actor-bv">🏥 Bệnh Viện</span>
+            <span class="step-title">Gửi đề nghị tuỳ chọn mua thêm</span>
+          </div>
+          <div class="step-body">
+            Bệnh viện điền và gửi <strong>Biểu mẫu Phụ lục 16 (PL 16)</strong> về cơ quan có thẩm quyền:
+            <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag">🏢 BV thuộc tỉnh/TP → Gửi về SYT</span>
+              <span class="tag amber">🏛️ BV thuộc Bộ → Bỏ qua bước này, gửi thẳng về Trung tâm (bước 2)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BƯỚC 2 -->
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+        </div>
+        <div class="step-right">
+          <div class="step-header">
+            <span class="step-actor actor-syt">🏛️ Sở Y Tế (SYT)</span>
+            <span class="step-title">Tổng hợp gửi về Trung tâm</span>
+          </div>
+          <div class="step-body">
+            SYT tổng hợp danh sách đề nghị của các BV và gửi về Trung tâm.
+            <div class="highlight-box amber" style="margin-top:10px;">
+              ⏰ <strong>Thời hạn:</strong> Trước ngày 30 hàng tháng — tần suất <strong>1 lần/quý</strong> hoặc <strong>đột xuất</strong> khi cần thiết.
+            </div>
+            <div style="margin-top:10px;">
+              SYT phải kèm theo 2 cam kết:
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+                <span class="tag">✅ Cam kết đã hết khả năng điều tiết thuốc trong phạm vi Tỉnh/TP</span>
+                <span class="tag">✅ Cam kết đảm bảo trách nhiệm giám sát việc sử dụng số lượng mua thêm mà BV đề nghị</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BƯỚC 3 -->
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+        </div>
+        <div class="step-right">
+          <div class="step-header">
+            <span class="step-actor actor-tt">🏢 Trung tâm Mua sắm</span>
+            <span class="step-title">Rà soát & Phê duyệt / Từ chối</span>
+          </div>
+          <div class="step-body">
+            Trung tâm tiến hành rà soát hồ sơ và ra quyết định trong vòng <strong>15 ngày làm việc</strong>.
+            <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="background:#EDFFF5;border:1.5px solid #60D495;border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:22px;margin-bottom:6px;">✅</div>
+                <div style="font-weight:700;color:#1A7A45;font-size:13px;">CHẤP THUẬN</div>
+                <div style="font-size:12px;color:#3A6A50;margin-top:6px;line-height:1.5;">Trung tâm gửi văn bản cho <strong>Nhà thầu</strong> để ký kết <em>Phụ lục Thoả thuận khung mua thêm</em></div>
+              </div>
+              <div style="background:#FFECEE;border:1.5px solid #F4A0A5;border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:22px;margin-bottom:6px;">❌</div>
+                <div style="font-weight:700;color:#B02020;font-size:13px;">TỪ CHỐI</div>
+                <div style="font-size:12px;color:#6A3A3A;margin-top:6px;line-height:1.5;">Trung tâm trả lời bằng văn bản nêu rõ lý do từ chối</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BƯỚC 4 -->
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">4</div>
+        </div>
+        <div class="step-right">
+          <div class="step-header">
+            <span class="step-actor actor-bv2">🏥 Bệnh Viện</span>
+            <span class="step-title">Ký kết Phụ lục mua thêm</span>
+          </div>
+          <div class="step-body">
+            Sau khi được <strong>Trung tâm chấp thuận</strong>, bệnh viện tiến hành ký kết <em>Phụ lục mua thêm</em> với nhà thầu để hoàn tất thủ tục.
+            <div class="highlight-box green" style="margin-top:10px;">
+              🎉 Sau khi ký phụ lục, bệnh viện được phép triển khai mua thêm số lượng thuốc theo đề nghị đã được chấp thuận.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUMMARY TIMELINE -->
+  <div style="background:white;border-radius:16px;padding:24px 28px;margin-bottom:24px;box-shadow:0 2px 16px rgba(19,99,223,0.08);">
+    <div class="section-title">⏱️ Tóm tắt luồng xử lý</div>
+    <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;">
+
+      <div style="text-align:center;padding:10px 8px;min-width:120px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1363DF,#47A0F4);color:white;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">🏥</div>
+        <div style="font-size:11px;font-weight:700;color:#0B2545;">BV gửi PL16</div>
+        <div style="font-size:10px;color:#7A8BB0;margin-top:2px;">về SYT</div>
+      </div>
+
+      <div style="color:#C5D8FF;font-size:24px;padding:0 4px;">→</div>
+
+      <div style="text-align:center;padding:10px 8px;min-width:120px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#7B2FBE,#C060F0);color:white;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">🏛️</div>
+        <div style="font-size:11px;font-weight:700;color:#0B2545;">SYT tổng hợp</div>
+        <div style="font-size:10px;color:#7A8BB0;margin-top:2px;">trước ngày 30/tháng</div>
+      </div>
+
+      <div style="color:#C5D8FF;font-size:24px;padding:0 4px;">→</div>
+
+      <div style="text-align:center;padding:10px 8px;min-width:120px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#E84855,#FF8080);color:white;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">🏢</div>
+        <div style="font-size:11px;font-weight:700;color:#0B2545;">Trung tâm rà soát</div>
+        <div style="font-size:10px;color:#7A8BB0;margin-top:2px;">trong 15 ngày</div>
+      </div>
+
+      <div style="color:#C5D8FF;font-size:24px;padding:0 4px;">→</div>
+
+      <div style="text-align:center;padding:10px 8px;min-width:120px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#05C3A0,#3DEDC8);color:white;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">✍️</div>
+        <div style="font-size:11px;font-weight:700;color:#0B2545;">BV ký phụ lục</div>
+        <div style="font-size:10px;color:#7A8BB0;margin-top:2px;">sau khi được chấp thuận</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>📌 Lưu ý:</strong> BV thuộc Bộ không cần qua SYT — gửi thẳng hồ sơ về <strong>Trung tâm Mua sắm tập trung</strong> bắt đầu từ Bước 2. &nbsp;|&nbsp; Biểu mẫu sử dụng: <strong>Phụ lục 16 (PL 16)</strong>.
+  </div>
+
+</div>
+</body>
+</html>
